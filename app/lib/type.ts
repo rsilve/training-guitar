@@ -1,0 +1,1 @@
+export type Activity = { id: number, description: string, year: number, month: number, day: number}

@@ -1,0 +1,19 @@
+
+>
+build/index.js,b/1/b13e722c22b8ed4288d9972d92b260aee6cffbf9
+9
+	README.md,8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
+?
+remix.config.js,c/c/cc4b0cd685c935a603874c74815751c81e9321c8
+9
+	server.js,d/c/dc60ea9ee1ff6246bf342463277d5b914db2883d
+D
+app/entry.client.tsx,d/2/d24c0e0b0f9f87d9c9b0fed487bc1107acdaf399
+D
+app/entry.server.tsx,2/6/26f3c5aaebbbab03909a0ed5f989996e8d983701
+D
+app/routes/index.tsx,d/6/d649aa1c35a4a277e0721965caa77d26ac4b6d99
+4
+.env,3/c/3c84dcdc6bbe3d7817c49dcdc327b926fea1808a
+B
+tailwind.config.js,0/9/0918cbb76f2c44f223706cec9d31a32cd1177ce4
