@@ -1,3 +1,5 @@
+import CalendarMonthNav from "~/components/CalendarMonthNav";
+
 function daysGenerator(d: { year: number, month: number }): number[][] {
     const today = new Date(d.year, d.month - 1, 1);
     const today_month = today.getMonth()
@@ -21,35 +23,35 @@ function daysGenerator(d: { year: number, month: number }): number[][] {
 
 function week_days() {
     return (
-        <tr>
-            <td>sun.</td>
-            <td>mon.</td>
-            <td>tue.</td>
-            <td>wed.</td>
-            <td>thu.</td>
-            <td>fri.</td>
-            <td>sat.</td>
-        </tr>
+        <>
+            <div className="cell">sun.</div>
+            <div className="cell">mon.</div>
+            <div className="cell">tue.</div>
+            <div className="cell">wed.</div>
+            <div className="cell">thu.</div>
+            <div className="cell">fri.</div>
+            <div className="cell">sat.</div>
+        </>
     )
 }
 
 export default function CalendarMonth({year, month}: { year: number, month: number }) {
     const days = daysGenerator({year, month})
-    const rows = []
+    const cells = []
     for (let row = 0; row < 6; row++) {
-        const cells = []
         for (let cell = 0; cell < 7; cell++) {
             const day = days[row] && days[row][cell] ? days[row][cell] : 0
-            cells.push(<td key={cell}><span>{day}</span></td>)
+            if (day) {
+                cells.push(<div key={row * 10 + cell} className="cell"><span className="day">{day}</span></div>)
+            } else {
+                cells.push(<div key={row * 10 + cell} className="cell"/>)
+            }
+
         }
-        rows.push(<tr key={row}>{cells}</tr>)
     }
-    return (<div className="p-6">
-        <table className="w-full">
-            <tbody>
-            {week_days()}
-            {rows}
-            </tbody>
-        </table>
+    return (<div className="calendar-month">
+        <div className="col-span-7"><CalendarMonthNav year={year} month={month}/></div>
+        {week_days()}
+        {cells}
     </div>);
 }

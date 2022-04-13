@@ -45,7 +45,7 @@ function ActivityItem(props: { activity: Activity }) {
 }
 
 export function ActivitiesListing(props: { activities: Activity[] }) {
-    return <ul className="mt-4 mb-4">
+    return <ul className="mt-4 mb-4 overflow-auto grow">
         {props.activities.map(activity => <ActivityItem activity={activity} key={activity.id}/>)}
     </ul>;
 }

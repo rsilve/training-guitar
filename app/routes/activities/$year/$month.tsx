@@ -5,7 +5,6 @@ import NewActivityButton from "~/components/NewActivityButton";
 import {ActivitiesListing} from "~/components/ActivitiesListing";
 import {getActivities} from "~/lib/getActivities";
 import CalendarMonth from "~/components/CalendarMonth";
-import CalendarMonthNav from "~/components/CalendarMonthNav";
 
 export const loader: LoaderFunction = async ({params}) => {
     const data = await getActivities(Number.parseInt(params.year || "0"), Number.parseInt(params.month || "0"));
@@ -37,11 +36,11 @@ export default function $month() {
 
     const data = useLoaderData();
 
-    return (<div>
+    return (<>
         <Outlet/>
         <ActivitiesListing activities={data.activities}/>
         <NewActivityButton disabled={transition.state !== "idle"}/>
-        <CalendarMonthNav year={year} month={month}/>
         <CalendarMonth year={year} month={month}/>
-    </div>);
+        </>
+);
 }
