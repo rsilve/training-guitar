@@ -4,7 +4,8 @@ import {db} from "~/utils/db.server";
 import NewActivityButton from "~/components/NewActivityButton";
 import {ActivitiesListing} from "~/components/ActivitiesListing";
 import {getActivities} from "~/lib/getActivities";
-
+import CalendarMonth from "~/components/CalendarMonth";
+import CalendarMonthNav from "~/components/CalendarMonthNav";
 
 export const loader: LoaderFunction = async ({params}) => {
     const data = await getActivities(Number.parseInt(params.year || "0"), Number.parseInt(params.month || "0"));
@@ -16,13 +17,22 @@ export const action: ActionFunction = async ({request}) => {
     const id = Number.parseInt(body.get("id") as string);
     let activity = await db.activity.findUnique({where: {id}});
     await db.activity.delete({where: {id}});
-    return redirect(`/activities/${activity.year}/${activity.month}`);
+    let year, month
+    if (!activity) {
+        const today = new Date();
+        year = today.getFullYear();
+        month = today.getMonth() + 1;
+    } else {
+        year = activity.year
+        month = activity.month
+    }
+    return redirect(`/activities/${year}/${month}`);
 }
 
 export default function $month() {
     const params = useParams();
-    const year = params.year;
-    const month = params.month;
+    const year = Number.parseInt(params.year || "0");
+    const month = Number.parseInt(params.month || "0");
     let transition = useTransition();
 
     const data = useLoaderData();
@@ -31,6 +41,7 @@ export default function $month() {
         <Outlet/>
         <ActivitiesListing activities={data.activities}/>
         <NewActivityButton disabled={transition.state !== "idle"}/>
-        <div>Calendrier {year}/{month}</div>
+        <CalendarMonthNav year={year} month={month}/>
+        <CalendarMonth year={year} month={month}/>
     </div>);
 }

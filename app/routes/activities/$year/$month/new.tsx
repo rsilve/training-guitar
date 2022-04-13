@@ -5,7 +5,6 @@ import {ActionFunction, json, redirect} from "remix";
 export const action: ActionFunction = async ({request}) => {
     const body = await request.formData();
     const [errors, activity] = await createActivity(body);
-    console.log(errors, activity);
     if (errors) {
         const values = Object.fromEntries(body);
         return json({errors, values});
