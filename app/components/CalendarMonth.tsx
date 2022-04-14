@@ -1,4 +1,5 @@
 import CalendarMonthNav from "~/components/CalendarMonthNav";
+import {Activity} from "~/lib/type";
 
 function daysGenerator(d: { year: number, month: number }): number[][] {
     const today = new Date(d.year, d.month - 1, 1);
@@ -35,14 +36,17 @@ function week_days() {
     )
 }
 
-export default function CalendarMonth({year, month}: { year: number, month: number }) {
+export default function CalendarMonth({year, month, activities}: { year: number, month: number, activities: Activity[] }) {
     const days = daysGenerator({year, month})
     const cells = []
     for (let row = 0; row < 6; row++) {
         for (let cell = 0; cell < 7; cell++) {
             const day = days[row] && days[row][cell] ? days[row][cell] : 0
             if (day) {
-                cells.push(<div key={row * 10 + cell} className="cell"><span className="day">{day}</span></div>)
+                let activity = activities.filter(a => a.day == day).pop();
+                console.log(activity, day)
+                const className = activity ? "cell activity" : "cell"
+                cells.push(<div key={row * 10 + cell} className={className}><span className="day">{day}</span></div>)
             } else {
                 cells.push(<div key={row * 10 + cell} className="cell"/>)
             }

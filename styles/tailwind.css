@@ -54,6 +54,14 @@
         @apply bg-gray-600 text-gray-200;
     }
 
+    .new-activity-button {
+        @apply bg-sky-600 text-stone-50 w-20 h-20 rounded-full justify-center inline-flex items-center;
+    }
+
+    .new-activity-button.disabled {
+        @apply bg-gray-600;
+    }
+
     .calendar-month {
         @apply grid grid-cols-7 justify-center w-full p-6 pt-0;
     }
@@ -64,5 +72,9 @@
 
     .calendar-month .cell .day {
         @apply inline-block rounded-full bg-gray-50 w-10 h-10 inline-flex justify-center items-center m-2;
+    }
+
+    .calendar-month .cell.activity .day {
+        @apply bg-sky-600 text-stone-50;
     }
 }

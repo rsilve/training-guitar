@@ -8,7 +8,12 @@ type LoaderData = {
 export const getActivities = async (year: number, month: number) => {
     const data: LoaderData = {
         activities: await db.activity.findMany({
-            where: {year, month}
+            where: {year, month},
+            orderBy: [
+                {year: 'asc'},
+                {month: 'asc'},
+                {day: 'asc'},
+            ],
         }),
     };
     //await new Promise(r => setTimeout(r, 2000));

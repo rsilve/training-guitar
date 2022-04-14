@@ -35,6 +35,6 @@ export async function createActivity(body: FormData): Promise<[ValidationError |
     }
     const activity = await db.activity.create({data: {description: body.get("description") as string,
             year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate()}});
-    //await new Promise(r => setTimeout(r, 2000));
+    await new Promise(r => setTimeout(r, 2000));
     return [undefined, activity];
 }

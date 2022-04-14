@@ -40,7 +40,7 @@ export default function $month() {
         <Outlet/>
         <ActivitiesListing activities={data.activities}/>
         <NewActivityButton disabled={transition.state !== "idle"}/>
-        <CalendarMonth year={year} month={month}/>
+        <CalendarMonth year={year} month={month} activities={data.activities}/>
         </>
 );
 }

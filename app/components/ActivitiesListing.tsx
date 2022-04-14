@@ -3,8 +3,16 @@ import {Activity} from "~/lib/type";
 import {useState} from "react";
 
 function ActivityDay(props: { year: number, month: number, day: number }) {
-    const d = String(props.month).padStart(2, '0')
-    return (<span>{props.year}-{d}</span>)
+    let now = new Date();
+    const formattedMonth = String(props.month).padStart(2, '0')
+    const formattedDay = String(props.day).padStart(2, '0')
+    if (now.getFullYear() === props.year && now.getMonth() + 1 === props.month) {
+        return <span>{formattedDay}</span>;
+    }
+    if (now.getFullYear() === props.year) {
+        return <span>{formattedDay}-{formattedMonth}</span>;
+    }
+    return (<span>{props.year}-{formattedMonth}-{formattedDay}</span>)
 }
 
 
