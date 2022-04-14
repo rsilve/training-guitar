@@ -36,7 +36,7 @@ export default () => {
             <Form method="post" className="p-6">
                 <div><label>Date <input type="date" defaultValue={date} name="date"/></label></div>
                 <div><label>Description *
-                    <input type="text" name="description" required={true}
+                    <input type="text" name="description" required={false}
                            defaultValue={actionData?.values.description}
                            placeholder="Gammes majeures sur tout le manche" /></label></div>
 

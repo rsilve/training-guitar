@@ -55,7 +55,7 @@
     }
 
     .calendar-month {
-        @apply grid grid-cols-7 justify-center w-full p-6 pt-0 mt-3 bg-blue-100;
+        @apply grid grid-cols-7 justify-center w-full p-6 pt-0;
     }
 
     .calendar-month .cell {
