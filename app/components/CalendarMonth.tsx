@@ -1,5 +1,6 @@
 import CalendarMonthNav from "~/components/CalendarMonthNav";
 import {Activity} from "~/lib/type";
+import {Link} from "@remix-run/react";
 
 function daysGenerator(d: { year: number, month: number }): number[][] {
     const today = new Date(d.year, d.month - 1, 1);
@@ -45,7 +46,9 @@ export default function CalendarMonth({year, month, activities}: { year: number,
             if (day) {
                 let activity = activities.filter(a => a.day == day).pop();
                 const className = activity ? "cell activity" : "cell"
-                cells.push(<div key={row * 10 + cell} className={className}><span className="day">{day}</span></div>)
+                cells.push(<div key={row * 10 + cell} className={className}>
+                    <span className="day"><Link to={`/activities/${year}/${month}/${day}`}>{day}</Link></span>
+                </div>)
             } else {
                 cells.push(<div key={row * 10 + cell} className="cell"/>)
             }

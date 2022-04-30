@@ -16,6 +16,19 @@ export const getActivities = async (year: number, month: number) => {
             ],
         }),
     };
-    //await new Promise(r => setTimeout(r, 2000));
+    return data;
+}
+
+export const getDayActivities = async (year: number, month: number, day: number) => {
+    const data: LoaderData = {
+        activities: await db.activity.findMany({
+            where: {year, month, day},
+            orderBy: [
+                {year: 'asc'},
+                {month: 'asc'},
+                {day: 'asc'},
+            ],
+        }),
+    };
     return data;
 }

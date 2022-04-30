@@ -77,4 +77,11 @@
     .calendar-month .cell.activity .day {
         @apply bg-sky-600 text-stone-50;
     }
+
+    .breadcrumb {
+        @apply pl-1 pt-3;
+    }
+    .breadcrumb-badge {
+        @apply bg-sky-600 text-stone-50 rounded p-1 pl-3 pr-3 ml-2 mr-2;
+    }
 }
