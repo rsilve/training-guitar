@@ -44,7 +44,6 @@ export default function CalendarMonth({year, month, activities}: { year: number,
             const day = days[row] && days[row][cell] ? days[row][cell] : 0
             if (day) {
                 let activity = activities.filter(a => a.day == day).pop();
-                console.log(activity, day)
                 const className = activity ? "cell activity" : "cell"
                 cells.push(<div key={row * 10 + cell} className={className}><span className="day">{day}</span></div>)
             } else {

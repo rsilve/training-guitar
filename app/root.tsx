@@ -24,7 +24,6 @@ export const meta: MetaFunction = () => ({
 });
 
 export const loader: LoaderFunction = async ({request}) => {
-    console.log("request", request.url);
     const url = new URL(request.url);
     if (url.pathname === "/") {
         const now = new Date();
