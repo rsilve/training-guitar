@@ -5,7 +5,7 @@ import NewActivityButton from "~/components/NewActivityButton";
 import {ActivitiesListing} from "~/components/ActivitiesListing";
 import {getActivities} from "~/lib/getActivities";
 import CalendarMonth from "~/components/CalendarMonth";
-import {Params} from "react-router";
+import type {Params} from "react-router";
 
 export const loader: LoaderFunction = async ({params}) => {
     const data = await getActivities(Number.parseInt(params.year || "0"), Number.parseInt(params.month || "0"));
@@ -39,7 +39,7 @@ export const handle = {
 
 export default function $month() {
     const matches = useMatches();
-    let isDay = matches.length === 5;
+    let isMonth = matches.length === 4;
     const params = useParams();
     const year = Number.parseInt(params.year || "0");
     const month = Number.parseInt(params.month || "0");
@@ -49,9 +49,9 @@ export default function $month() {
 
     return (<>
             <Outlet/>
-            {!isDay && <ActivitiesListing activities={data.activities}/>}
+            {isMonth && <ActivitiesListing activities={data.activities}/>}
             <NewActivityButton disabled={transition.state !== "idle"}/>
-            {!isDay && <CalendarMonth year={year} month={month} activities={data.activities}/>}
+            {isMonth && <CalendarMonth year={year} month={month} activities={data.activities}/>}
         </>
     );
 }

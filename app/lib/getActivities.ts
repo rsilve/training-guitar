@@ -1,5 +1,5 @@
 import {db} from "~/utils/db.server";
-import {Activity} from "~/lib/type";
+import type {Activity} from "~/lib/type";
 
 type LoaderData = {
     activities: Array<Activity>;
@@ -30,5 +30,14 @@ export const getDayActivities = async (year: number, month: number, day: number)
             ],
         }),
     };
+    return data;
+}
+
+export const getYearActivities = async (year: number) => {
+    const data: LoaderData = await db.activity.groupBy({
+        by: ['month'],
+        where: {year},
+        _count: true,
+    });
     return data;
 }
