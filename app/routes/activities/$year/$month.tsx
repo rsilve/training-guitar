@@ -1,11 +1,13 @@
 import {Link, Outlet, useLoaderData, useMatches, useParams, useTransition} from "@remix-run/react";
-import {ActionFunction, json, LoaderFunction, redirect} from "remix";
+import type {ActionFunction, LoaderFunction} from "remix";
+import {json, redirect} from "remix";
 import {db} from "~/utils/db.server";
 import NewActivityButton from "~/components/NewActivityButton";
 import {ActivitiesListing} from "~/components/ActivitiesListing";
 import {getActivities} from "~/lib/getActivities";
 import CalendarMonth from "~/components/CalendarMonth";
 import type {Params} from "react-router";
+import {nextMonth, prevMonth, urlDateFormat} from "~/utils/urlDateFormat";
 
 export const loader: LoaderFunction = async ({params}) => {
     const data = await getActivities(Number.parseInt(params.year || "0"), Number.parseInt(params.month || "0"));
@@ -30,11 +32,26 @@ export const action: ActionFunction = async ({request}) => {
 }
 
 export const handle = {
-    breadcrumb: (params: Readonly<Params<string>>) => {
+    breadcrumb: (params: Readonly<Params>) => {
         const {year, month} = params;
         const url = `/activities/${year}/${month}`;
         const title = (<Link to={url} className="breadcrumb-badge">{params.month}</Link>)
-        return (<><span>/</span>{title}</>)},
+        return (<><span>/</span>{title}</>)
+    },
+    next: (params: Readonly<Params>) => {
+        const {year, month, day} = params;
+        const dateSegment = urlDateFormat(nextMonth({year, month, day}))
+        const url = `/activities/${dateSegment}`;
+        const title = (<Link to={url}>&gt;&gt;</Link>)
+        return (<>{title}</>)
+    },
+    previous: (params: Readonly<Params>) => {
+        const {year, month, day} = params;
+        const dateSegment = urlDateFormat(prevMonth({year, month, day}))
+        const url = `/activities/${dateSegment}`;
+        const title = (<Link to={url}>&lt;&lt;</Link>)
+        return (<>{title}</>)
+    },
 };
 
 export default function $month() {

@@ -63,7 +63,7 @@
     }
 
     .calendar-month {
-        @apply grid grid-cols-7 justify-center w-full p-6 pt-0;
+        @apply grid grid-cols-7 justify-center w-full p-3;
     }
 
     .calendar-month .cell {
@@ -79,7 +79,7 @@
     }
 
     .breadcrumb {
-        @apply pl-1 pt-3;
+        @apply pl-3 pt-3;
     }
     .breadcrumb-badge {
         @apply bg-sky-600 text-stone-50 rounded p-1 pl-3 pr-3 ml-2 mr-2;

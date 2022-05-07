@@ -1,8 +1,10 @@
 import {Link, Outlet, useLoaderData} from "@remix-run/react";
 import {ActivitiesListing} from "~/components/ActivitiesListing";
-import {json, LoaderFunction} from "remix";
+import type { LoaderFunction} from "remix";
+import {json} from "remix";
 import {getDayActivities} from "~/lib/getActivities";
-import {Params} from "react-router";
+import type {Params} from "react-router";
+import {nextDate, prevDate, urlDateFormat} from "~/utils/urlDateFormat";
 
 
 export const loader: LoaderFunction = async ({params}) => {
@@ -13,11 +15,26 @@ export const loader: LoaderFunction = async ({params}) => {
 };
 
 export const handle = {
-    breadcrumb: (params: Readonly<Params<string>>) => {
+    breadcrumb: (params: Readonly<Params>) => {
         const {year, month, day} = params;
         const url = `/activities/${year}/${month}/${day}`;
         let title = (<Link to={url} className="breadcrumb-badge">{params.day}</Link>)
-        return (<><span>/</span>{title}</>)},
+        return (<><span>/</span>{title}</>)
+    },
+    next: (params: Readonly<Params>) => {
+        const {year, month, day} = params;
+        const dateSegment = urlDateFormat(nextDate({year, month, day}))
+        const url = `/activities/${dateSegment}`;
+        const title = (<Link to={url}>&gt;</Link>)
+        return (<>{title}</>)
+    },
+    previous: (params: Readonly<Params>) => {
+        const {year, month, day} = params;
+        const dateSegment = urlDateFormat(prevDate({year, month, day}))
+        const url = `/activities/${dateSegment}`;
+        const title = (<Link to={url}>&lt;</Link>)
+        return (<>{title}</>)
+    }
 };
 
 

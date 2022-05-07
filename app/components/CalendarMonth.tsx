@@ -1,4 +1,3 @@
-import CalendarMonthNav from "~/components/CalendarMonthNav";
 import {Activity} from "~/lib/type";
 import {Link} from "@remix-run/react";
 
@@ -56,7 +55,6 @@ export default function CalendarMonth({year, month, activities}: { year: number,
         }
     }
     return (<div className="calendar-month">
-        <div className="col-span-7"><CalendarMonthNav year={year} month={month}/></div>
         {week_days()}
         {cells}
     </div>);

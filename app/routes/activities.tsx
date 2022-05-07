@@ -1,10 +1,22 @@
 import {Outlet} from "remix";
 import {useMatches} from "@remix-run/react";
-import {Params} from "react-router";
+import type {Params} from "react-router";
 
-function breadCrumb(matches: {handle: any, params: Params<string>}[]) {
+function breadCrumb(matches: {handle: any, params: Params}[]) {
+    const reversedMatches = [...matches].reverse();
     return (<div className="breadcrumb">
         <ol>
+            {matches
+                .filter(
+                    (match) =>
+                        match.handle && match.handle.previous
+                )
+                // render breadcrumbs!
+                .map((match, index) => (
+                    <li key={`prev${index}`} className="inline-block pl-3">
+                        {match.handle.previous(match.params)}
+                    </li>
+                ))}
             {matches
                 .filter(
                     (match) =>
@@ -16,6 +28,19 @@ function breadCrumb(matches: {handle: any, params: Params<string>}[]) {
                         {match.handle.breadcrumb(match.params)}
                     </li>
                 ))}
+
+            {reversedMatches
+                .filter(
+                    (match) =>
+                        match.handle && match.handle.next
+                )
+                // render breadcrumbs!
+                .map((match, index) => (
+                    <li key={`key${index}`} className="inline-block pr-3">
+                        {match.handle.next(match.params)}
+                    </li>
+                ))}
+
         </ol>
     </div>)
 }
