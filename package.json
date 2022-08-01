@@ -23,7 +23,7 @@
     "start": "cross-env NODE_ENV=production node ./build/index.js"
   },
   "dependencies": {
-    "@prisma/client": "^4.1.0",
+    "@prisma/client": "^4.1.1",
     "@remix-run/express": "^1.6.5",
     "@remix-run/react": "^1.6.7",
     "compression": "^1.7.4",
